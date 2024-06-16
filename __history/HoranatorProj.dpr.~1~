@@ -1,0 +1,14 @@
+program HoranatorProj;
+
+uses
+  Vcl.Forms,
+  uPrinc in 'uPrinc.pas' {frmPrin};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmPrin, frmPrin);
+  Application.Run;
+end.

@@ -1,0 +1,165 @@
+unit timeCalc;
+
+interface
+
+uses
+  SysUtils, DateUtils;
+
+  type
+
+  TtimeCalc  = class
+  private
+    primeiroTempo        : TTime;
+    segundoTempo         : TTime;
+    primeiroTempoContra  : TTime;
+    segundoTempoContra   : TTime;
+    primeiroTempoAlmoco  : TTime;
+    segundoTempoAlmoco   : TTime;
+    primeiroTempoCManha  : TTime;
+    segundoTempoCManha   : TTime;
+    primeiroTempoCTarde  : TTime;
+    segundoTempoCTarde   : TTime;
+    difInitialTime       : TTime;
+    difAlmoco            : TTime;
+    DifContraTempo       : TTime;
+    DifComCafeM          : TTime;
+    DifComCafT           : TTime;
+
+  public
+    procedure SetInitialTime(const AInitialTime: TTime);
+    procedure SetFinalTime(const AFinalTime: TTime);
+    procedure SetContraTempoI(const CinitialTime: TTime);
+    procedure SetContraTempoF(const CFinalTime: TTime);
+    procedure SetContraTempoAlmocoI(AlinitialTime : TTime);
+    procedure SetContraTempoAlmocoF(AlfinalTime : TTime);
+    procedure SetContraTempoCafMI(PinalTime : TTime);
+    procedure SetContraTempoCafMF(PFinalTime : TTime);
+    procedure SetContraTempoCafeTI(CTinialtime : TTime);
+    procedure SetContraTempoCafeTF(CFinialtime : TTime);
+    function  CalculateDifference: TTime;
+    function  calculaDiffComContratempo: Ttime;
+    function  calculaDiffComAlmoco : TTime;
+    function  calculaDiffComTempoCafeM : TTime;
+    function  calculaDiffComTempoCafeT : TTime;
+    function  calculaDiffComContraTempos : TTime;
+    function  calculaDiffComTmpTaskTmpoAlmocoTmpContraTempo : TTime;
+    function  calculaDiffComTmpTaskTmpContraTempoTmpCafeM   : TTime;
+  end;
+
+implementation
+
+{ TtimeCalc }
+
+procedure TtimeCalc.SetInitialTime(const AInitialTime: TTime);
+begin
+     primeiroTempo := AInitialTime;
+end;
+
+procedure TtimeCalc.SetFinalTime(const AFinalTime: TTime);
+begin
+   segundoTempo := AFinalTime;
+end;
+
+procedure TtimeCalc.SetContraTempoI(const CinitialTime: TTime);
+begin
+       primeiroTempoContra := CinitialTime;
+end;
+
+procedure TtimeCalc.SetContraTempoAlmocoI(AlinitialTime: TTime);
+begin
+    primeiroTempoAlmoco := AlinitialTime;
+end;
+
+procedure TtimeCalc.SetContraTempoCafMI(PinalTime: TTime);
+begin
+    primeiroTempoCManha := PinalTime;
+end;
+
+procedure TtimeCalc.SetContraTempoCafeTI(CTinialtime: TTime);
+begin
+   primeiroTempoCTarde := CTinialtime;
+end;
+
+procedure TtimeCalc.SetContraTempoCafeTF(CFinialtime: TTime);
+begin
+  segundoTempoCTarde := CFinialtime;
+end;
+
+procedure TtimeCalc.SetContraTempoCafMF(PFinalTime: TTime);
+begin
+  segundoTempoCManha := PFinalTime;
+end;
+
+procedure TtimeCalc.SetContraTempoAlmocoF(AlfinalTime: TTime);
+begin
+   segundoTempoAlmoco := AlfinalTime;
+end;
+
+procedure TtimeCalc.SetContraTempoF(const CFinalTime: TTime);
+begin
+    segundoTempoContra := CFinalTime;
+end;
+
+              //Inicio das funções
+
+function TtimeCalc.CalculateDifference: TTime;
+var dif: TTime;
+begin
+
+    Result := Abs(segundoTempo - primeiroTempo);
+    difInitialTime := Abs(segundoTempo - primeiroTempo);
+
+end;
+
+function TtimeCalc.calculaDiffComAlmoco: TTime;
+var
+  diffWthAlmoco : TTime;
+begin
+    diffWthAlmoco := Abs(segundoTempoAlmoco - primeiroTempoAlmoco);
+    difAlmoco     := Abs(segundoTempoAlmoco - primeiroTempoAlmoco);
+    Result := Abs((difInitialTime)-(diffWthAlmoco));
+end;
+
+function TtimeCalc.calculaDiffComContratempo: Ttime;
+var
+  diffWthContr: TTime;
+begin
+   diffWthContr   := Abs(segundoTempoContra - primeiroTempoContra);
+   DifContraTempo := Abs(segundoTempoContra - primeiroTempoContra);
+   Result := Abs((difInitialTime) - (diffWthContr));
+end;
+
+function TtimeCalc.calculaDiffComTempoCafeM: TTime;
+var
+  diffWthCafeManha : TTime;
+begin
+   diffWthCafeManha := Abs(segundoTempoCManha - primeiroTempoCManha);
+   DifComCafeM      := Abs(segundoTempoCManha - primeiroTempoCManha);
+   Result := Abs((difInitialTime) - (diffWthCafeManha));
+end;
+
+function TtimeCalc.calculaDiffComTempoCafeT: TTime;
+var
+ diffWthCafeTarde : TTime;
+begin
+ diffWthCafeTarde := Abs(segundoTempoCTarde - primeiroTempoCTarde);
+ DifComCafT := Abs(segundoTempoCTarde - primeiroTempoCTarde);
+ Result := Abs((difInitialTime) - (diffWthCafeTarde));
+end;
+
+function TtimeCalc.calculaDiffComContraTempos: TTime;
+begin
+    Result := Abs((difInitialTime) - (DifContraTempo) - (difAlmoco) - (DifComCafeM) - (DifComCafT));
+end;
+
+function TtimeCalc.calculaDiffComTmpTaskTmpoAlmocoTmpContraTempo: TTime;
+begin
+    Result := Abs((difInitialTime) - (DifContraTempo) - (difAlmoco));
+end;
+
+function TtimeCalc.calculaDiffComTmpTaskTmpContraTempoTmpCafeM: TTime;
+begin
+    Result := Abs((difInitialTime) - (DifContraTempo) - (DifComCafeM));
+end;
+
+end.
